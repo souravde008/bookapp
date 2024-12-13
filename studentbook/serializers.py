@@ -2,7 +2,10 @@ from rest_framework import serializers
 from .models import Author,Book,Student
 
 class StudentSerializer(serializers.ModelSerializer):
-
+    def validate_age(self,value):
+        if value < 1:
+            return serializers.ValidationError("age can't be zer or nagetives")
+        return value
     class Meta:
         model = Student
         fields = ["id","name","age","city","pin_code"]
